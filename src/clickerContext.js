@@ -25,19 +25,23 @@ export const ContextProvider = ({ children }) => {
   const [lvlRequirement, setLvlRequirement] = useState(storageRequirements);
 
   useEffect(() => {
-    localStorage.setItem("clicks", clicks);
-    console.log(localStorage.getItem("clicks"));
-
     if (clicks >= 10 && clicks < 20) {
       setPlayerLvl(2);
-      localStorage.setItem("lvl", playerLvl);
     } else if (clicks / 2 === lvlRequirement) {
       setLvlRequirement(lvlRequirement * 2);
-      localStorage.setItem("lvlRequirement", lvlRequirement);
       setPlayerLvl(playerLvl + 1);
-      localStorage.setItem("lvl", playerLvl);
     }
   }, [clicks]);
+
+  useEffect(() => {
+    localStorage.setItem("clicks", clicks);
+    console.log(localStorage.getItem("clicks"));
+  }, [clicks]);
+
+  useEffect(() => {
+    localStorage.setItem("lvl", playerLvl);
+    localStorage.setItem("lvlRequirement", lvlRequirement);
+  }, [playerLvl, setLvlRequirement]);
 
   const handleIncreaseClicks = () => {
     setClicks(clicks + 1);
@@ -49,8 +53,12 @@ export const ContextProvider = ({ children }) => {
     setPlayerLvl(1);
   };
 
-  const value = [clicks, handleIncreaseClicks, clearProgress, playerLvl];
-
+  const value = {
+    clicks,
+    handleIncreaseClicks,
+    clearProgress,
+    playerLvl,
+  };
   return (
     <ClickerContext.Provider value={value}>{children}</ClickerContext.Provider>
   );

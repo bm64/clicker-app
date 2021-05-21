@@ -1,7 +1,9 @@
-import React from "react"
+import React, {useContext} from "react"
+import ClickerContext from "./clickerContext";
 
 const ClickerButton = ({onClick}) =>{
-    return(<button onClick={()=>onClick()}className="mainButton">
+  const { handleIncreaseClicks  } = useContext(ClickerContext)
+    return(<button onClick={()=>handleIncreaseClicks()}className="mainButton">
         Click Me!
     </button>)
 }

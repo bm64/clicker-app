@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import ClickerContext from "./clickerContext";
 
-const PlayerProgress = ({ clicks, playerLvl }) => {
+const PlayerProgress = () => {
+  const { clicks, playerLvl } = useContext(ClickerContext)
   return (
     <div>
       <h2>{clicks}</h2>
