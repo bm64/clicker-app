@@ -1,4 +1,4 @@
-let achievementlist = {
+export const achievements = {
   koxClicker: {
     description: "reach 100 clicks",
     requirement: { clicks: 5 },
@@ -13,4 +13,20 @@ let achievementlist = {
   },
 };
 
-export default achievementlist;
+export const clickingMachines = {
+  cookieFarm: {
+    requiredLvl: 3,
+    cost: 10,
+    cps: 1,
+  },
+  cookieFactory: {
+    requiredLvl: 4,
+    cost: 20,
+    cps: 1,
+  },
+  cookieConjurer: {
+    requiredLvl: 5,
+    cost: 30,
+    cps: 1,
+  },
+};

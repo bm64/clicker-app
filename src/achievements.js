@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import ClickerContext from "./clickerContext";
-import achievementlist from "./achievementList";
-import { isConstructorDeclaration } from "typescript";
-console.log(Object.entries(achievementlist));
+import { achievements as achievementlist } from "./data";
 
 const Achievements = () => {
   const { playerAchievements } = useContext(ClickerContext);

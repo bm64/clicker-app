@@ -1,5 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
-import achievementlist from "./achievementList";
+import { clickingMachines, achievements as achievementlist } from "./data";
 
 const ClickerContext = createContext();
 export default ClickerContext;
@@ -24,6 +24,11 @@ const storageAchievements =
     ? JSON.parse(localStorage.getItem("achievements"))
     : [];
 
+const storageMachines =
+  localStorage.getItem("machines") != undefined
+    ? JSON.parse(localStorage.getItem("machines"))
+    : [];
+
 export const ContextProvider = ({ children }) => {
   const [clicks, setClicks] = useState(storageClicks);
   const [playerLvl, setPlayerLvl] = useState(storageLvl);
@@ -32,6 +37,34 @@ export const ContextProvider = ({ children }) => {
     useState(storageAchievements);
   console.log(playerAchievements);
   const [showMessage, setShowMessage] = useState(false);
+  const [playerMachines, setPlayerMachines] = useState(storageMachines);
+
+  // player machines use effect
+  useEffect(() => {
+    let CPS;
+    if (playerMachines.length > 0) {
+    }
+  }, [playerMachines]);
+
+  const handleBuyMachine = (machine) => {
+    for (const [machineName, machineSpecs] of Object.entries(
+      clickingMachines
+    )) {
+      if (
+        machine == machineName &&
+        machineSpecs.cost <= clicks &&
+        machineSpecs.requiredLvl <= playerLvl
+      ) {
+        setPlayerMachines([...playerMachines, machineName]);
+        setClicks(clicks - machineSpecs.cost);
+      }
+    }
+  };
+
+  console.log(playerMachines);
+  useEffect(() => {
+    localStorage.setItem("machines", JSON.stringify(playerMachines));
+  }, [playerMachines]);
 
   useEffect(() => {
     if (clicks >= 10 && clicks < 20) {
@@ -100,6 +133,7 @@ export const ContextProvider = ({ children }) => {
     setPlayerLvl(1);
     setLvlRequirement(10);
     setPlayerAchievements([]);
+    setPlayerMachines([]);
   };
 
   const value = {
@@ -109,6 +143,8 @@ export const ContextProvider = ({ children }) => {
     playerLvl,
     playerAchievements: [...playerAchievements],
     showMessage,
+    playerMachines,
+    handleBuyMachine,
   };
   return (
     <ClickerContext.Provider value={value}>{children}</ClickerContext.Provider>
