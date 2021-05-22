@@ -31,6 +31,7 @@ export const ContextProvider = ({ children }) => {
   const [playerAchievements, setPlayerAchievements] =
     useState(storageAchievements);
   console.log(playerAchievements);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (clicks >= 10 && clicks < 20) {
@@ -66,6 +67,7 @@ export const ContextProvider = ({ children }) => {
           clicks >= requirement &&
           !playerAchievements.includes(achievement)
         ) {
+          handleShowsMessage();
           setPlayerAchievements([...playerAchievements, achievement]);
         } else if (type === "level") {
         }
@@ -75,6 +77,11 @@ export const ContextProvider = ({ children }) => {
 
   const handleIncreaseClicks = () => {
     setClicks(clicks + 1);
+  };
+
+  const handleShowsMessage = () => {
+    setShowMessage(true);
+    setTimeout(() => setShowMessage(false), 3000);
   };
 
   useEffect(() => {
@@ -95,6 +102,7 @@ export const ContextProvider = ({ children }) => {
     clearProgress,
     playerLvl,
     playerAchievements: [...playerAchievements],
+    showMessage,
   };
   return (
     <ClickerContext.Provider value={value}>{children}</ClickerContext.Provider>

@@ -6,11 +6,13 @@ import Home from "./home";
 import Achievements from "./achievements";
 import Shop from "./shop";
 import { ContextProvider } from "./clickerContext";
+import AchievementMessage from "./AchievementMessage";
 
 const App = () => {
   return (
     <div className="App">
       <ContextProvider>
+        <AchievementMessage />
         <Navbar />
         <Switch>
           <Route path="/achievements">
