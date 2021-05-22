@@ -1,4 +1,5 @@
 import React, { useState, createContext, useEffect } from "react";
+import achievementlist from "./achievementList";
 
 const ClickerContext = createContext();
 export default ClickerContext;
@@ -18,11 +19,18 @@ const storageRequirements =
     ? parseInt(localStorage.getItem("lvlRequirement"))
     : 10;
 
+const storageAchievements =
+  localStorage.getItem("achievements") != undefined
+    ? JSON.parse(localStorage.getItem("achievements"))
+    : [];
+
 export const ContextProvider = ({ children }) => {
   const [clicks, setClicks] = useState(storageClicks);
-
   const [playerLvl, setPlayerLvl] = useState(storageLvl);
   const [lvlRequirement, setLvlRequirement] = useState(storageRequirements);
+  const [playerAchievements, setPlayerAchievements] =
+    useState(storageAchievements);
+  console.log(playerAchievements);
 
   useEffect(() => {
     if (clicks >= 10 && clicks < 20) {
@@ -43,14 +51,42 @@ export const ContextProvider = ({ children }) => {
     localStorage.setItem("lvlRequirement", lvlRequirement);
   }, [playerLvl, setLvlRequirement]);
 
+  //achievements handle useEffect
+
+  useEffect(() => {
+    for (const [achievement, achievementDetails] of Object.entries(
+      achievementlist
+    )) {
+      for (const [type, requirement] of Object.entries(
+        achievementDetails.requirement
+      )) {
+        console.log(type + requirement);
+        if (
+          type === "clicks" &&
+          clicks >= requirement &&
+          !playerAchievements.includes(achievement)
+        ) {
+          setPlayerAchievements([...playerAchievements, achievement]);
+        } else if (type === "level") {
+        }
+      }
+    }
+  }, [clicks, playerLvl]);
+
   const handleIncreaseClicks = () => {
     setClicks(clicks + 1);
   };
+
+  useEffect(() => {
+    localStorage.setItem("achievements", JSON.stringify(playerAchievements));
+  }, [playerAchievements]);
 
   const clearProgress = () => {
     localStorage.clear();
     setClicks(0);
     setPlayerLvl(1);
+    setLvlRequirement(10);
+    setPlayerAchievements([]);
   };
 
   const value = {
@@ -58,6 +94,7 @@ export const ContextProvider = ({ children }) => {
     handleIncreaseClicks,
     clearProgress,
     playerLvl,
+    playerAchievements: [...playerAchievements],
   };
   return (
     <ClickerContext.Provider value={value}>{children}</ClickerContext.Provider>
