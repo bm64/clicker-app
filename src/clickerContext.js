@@ -69,7 +69,13 @@ export const ContextProvider = ({ children }) => {
         ) {
           handleShowsMessage();
           setPlayerAchievements([...playerAchievements, achievement]);
-        } else if (type === "level") {
+        } else if (
+          type === "level" &&
+          playerLvl >= requirement &&
+          !playerAchievements.includes(achievement)
+        ) {
+          handleShowsMessage();
+          setPlayerAchievements([...playerAchievements, achievement]);
         }
       }
     }

@@ -5,11 +5,11 @@ let achievementlist = {
   },
   turboClicker: {
     description: "reach 100 clicks",
-    requirement: { clicks: 10 },
+    requirement: { clicks: 80 },
   },
   professionalclicker: {
     description: "reach 5lvl",
-    requirement: { level: 5 },
+    requirement: { level: 4 },
   },
 };
 
