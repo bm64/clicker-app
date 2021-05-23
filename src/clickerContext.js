@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext, useEffect, createRef } from "react";
 import { clickingMachines, achievements as achievementlist } from "./data";
 
 const ClickerContext = createContext();
@@ -35,14 +35,26 @@ export const ContextProvider = ({ children }) => {
   const [lvlRequirement, setLvlRequirement] = useState(storageRequirements);
   const [playerAchievements, setPlayerAchievements] =
     useState(storageAchievements);
-  console.log(playerAchievements);
   const [showMessage, setShowMessage] = useState(false);
   const [playerMachines, setPlayerMachines] = useState(storageMachines);
+  const intervalRef = createRef();
 
-  // player machines use effect
+  //sum up cps and function
   useEffect(() => {
-    let CPS;
+    let cps = 0;
     if (playerMachines.length > 0) {
+      playerMachines.forEach((machine) => {
+        cps = cps + clickingMachines[machine].cps;
+      });
+    }
+
+    if (playerMachines.length > 0) {
+      intervalRef.current = setInterval(() => {
+        setClicks((cx) => cx + cps / 10);
+      }, 100);
+      return () => {
+        clearInterval(intervalRef.current);
+      };
     }
   }, [playerMachines]);
 
@@ -61,7 +73,6 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  console.log(playerMachines);
   useEffect(() => {
     localStorage.setItem("machines", JSON.stringify(playerMachines));
   }, [playerMachines]);
@@ -77,7 +88,6 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("clicks", clicks);
-    console.log(localStorage.getItem("clicks"));
   }, [clicks]);
 
   useEffect(() => {
@@ -94,7 +104,6 @@ export const ContextProvider = ({ children }) => {
       for (const [type, requirement] of Object.entries(
         achievementDetails.requirement
       )) {
-        console.log(type + requirement);
         if (
           type === "clicks" &&
           clicks >= requirement &&

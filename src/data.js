@@ -22,11 +22,11 @@ export const clickingMachines = {
   cookieFactory: {
     requiredLvl: 4,
     cost: 20,
-    cps: 1,
+    cps: 2,
   },
   cookieConjurer: {
     requiredLvl: 5,
     cost: 30,
-    cps: 1,
+    cps: 3,
   },
 };

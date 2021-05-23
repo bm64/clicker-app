@@ -3,9 +3,12 @@ import ClickerContext from "./clickerContext";
 
 const PlayerProgress = () => {
   const { clicks, playerLvl } = useContext(ClickerContext)
+  console.log(typeof clicks)
   return (
     <div>
-      <h2>{clicks}</h2>
+      <h2>{
+      Number.isInteger(clicks) ? clicks : 
+      clicks.toFixed(1)}</h2>
       <h2>Your lvl:{playerLvl}</h2>
     </div>
   );
