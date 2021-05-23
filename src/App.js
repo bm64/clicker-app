@@ -12,19 +12,21 @@ const App = () => {
   return (
     <div className="App">
       <ContextProvider>
-        <AchievementMessage />
         <Navbar />
-        <Switch>
-          <Route path="/achievements">
-            <Achievements />
-          </Route>
-          <Route path="/shop">
-            <Shop />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <div className="container">
+          <AchievementMessage />
+          <Switch>
+            <Route path="/achievements">
+              <Achievements />
+            </Route>
+            <Route path="/shop">
+              <Shop />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
       </ContextProvider>
     </div>
   );
