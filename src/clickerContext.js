@@ -39,6 +39,7 @@ export const ContextProvider = ({ children }) => {
   const [playerMachines, setPlayerMachines] = useState(storageMachines);
   const intervalRef = createRef();
 
+  console.log(playerMachines);
   //sum up cps and function
   useEffect(() => {
     let cps = 0;
@@ -78,9 +79,7 @@ export const ContextProvider = ({ children }) => {
   }, [playerMachines]);
 
   useEffect(() => {
-    if (clicks >= 10 && clicks < 20) {
-      setPlayerLvl(2);
-    } else if (clicks / 2 === lvlRequirement) {
+    if (clicks >= lvlRequirement) {
       setLvlRequirement(lvlRequirement * 2);
       setPlayerLvl(playerLvl + 1);
     }
@@ -154,6 +153,7 @@ export const ContextProvider = ({ children }) => {
     showMessage,
     playerMachines,
     handleBuyMachine,
+    lvlRequirement,
   };
   return (
     <ClickerContext.Provider value={value}>{children}</ClickerContext.Provider>

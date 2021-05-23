@@ -4,13 +4,6 @@ import { achievements as achievementlist } from "./data";
 
 const Achievements = () => {
   const { playerAchievements } = useContext(ClickerContext);
-  console.log(playerAchievements);
-  console.log(
-    Object.entries(achievementlist).filter(([key, item]) =>
-      playerAchievements.includes(key)
-    )
-  );
-  console.log(Object.entries(achievementlist));
   return (
     <div>
       <h1>Achievements</h1>
