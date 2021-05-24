@@ -6,7 +6,7 @@ const PlayerProgress = ({ children }) => {
   return (
     <div className="player-progress">
       <h1 className="primary-header">
-        {Number.isInteger(clicks) ? clicks : clicks.toFixed(1)}
+        {Number.isInteger(clicks) ? clicks : clicks.toFixed(0)}
         <br />
         {clicks === 1 ? "Cookie" : "Cookies"}
       </h1>

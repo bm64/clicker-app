@@ -1,10 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import ClickerContext from "./clickerContext";
 import { achievements as allAchievements } from "./data";
 
 const Achievements = () => {
   const { playerAchievements } = useContext(ClickerContext);
-  const achievements = Object.entries(allAchievements);
+
+  const [unlockedAchievments, notUnlockedAchievments] = useMemo(() => {
+    const entries = Object.entries(allAchievements);
+
+    const unlocked = [];
+    const notUnlocked = [];
+
+    for (const achievement of entries) {
+      const [name] = achievement;
+
+      if (playerAchievements.includes(name)) unlocked.push(achievement);
+      else notUnlocked.push(achievement);
+    }
+
+    return [unlocked, notUnlocked];
+  }, [playerAchievements]);
+
   return (
     <div>
       <h1 className="primary-header">Achievements</h1>
@@ -12,35 +28,26 @@ const Achievements = () => {
         <div>
           <h2>Unlocked Achievements:</h2>
           <div className="divider" />
-          {achievements
-            .filter(([achievement, details]) =>
-              playerAchievements.includes(achievement)
-            )
-            .map(([achievement, details]) => (
-              <div>
-                <h3 className="achievement-name">{details.name}</h3>
-                <span className="achievement-description">
-                  {details.description}
-                </span>
-              </div>
-            ))}
+          {unlockedAchievments.map(([achievement, details]) => (
+            <div>
+              <h3 className="achievement-name">{details.name}</h3>
+              <span className="achievement-description">
+                {details.description}
+              </span>
+            </div>
+          ))}
         </div>
         <div>
           <h2>Locked Achievements</h2>
           <div className="divider" />
-          {Object.entries(allAchievements)
-            .filter(
-              ([achievement, details]) =>
-                !playerAchievements.includes(achievement)
-            )
-            .map(([achievement, details]) => (
-              <div>
-                <h3 className="achievement-name">{details.name}</h3>
-                <span className="achievement-description">
-                  {details.description}
-                </span>
-              </div>
-            ))}
+          {notUnlockedAchievments.map(([achievement, details]) => (
+            <div>
+              <h3 className="achievement-name">{details.name}</h3>
+              <span className="achievement-description">
+                {details.description}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

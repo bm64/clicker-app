@@ -108,6 +108,10 @@ body {
 }
 .home {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .clear-button:hover {
   color: #fbfbfb;
@@ -140,6 +144,30 @@ body {
   height: 2px;
   background-color: #171717;
   width: 12rem;
+}
+
+.machines {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.machine {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.machine-icon {
+  width: 2rem;
+  margin: 0rem 1rem 0rem 0.5rem;
+  color: #c37418;
+}
+
+.machine-count {
+  font-family: "Roboto";
+  font-size: 1.5rem;
+  color: #c37418;
 }
 
 .achievement-message {
