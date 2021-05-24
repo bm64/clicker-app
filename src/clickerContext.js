@@ -1,11 +1,11 @@
 import React, { useState, createContext, useEffect, createRef } from "react";
+
 import { clickingMachines, achievements as allAchievements } from "./data";
 
 const ClickerContext = createContext();
 export default ClickerContext;
 
 // load data from local storage
-
 const loadIntOrDefault = (key, defaultValue = 0) => {
   return localStorage.getItem(key) !== null
     ? parseInt(localStorage.getItem(key))
@@ -23,6 +23,7 @@ const storageLvl = loadIntOrDefault("lvl", 1);
 const storageRequirements = loadIntOrDefault("lvlRequirement", 10);
 const storageAchievements = loadArrOrDefault("achievements");
 const storageMachines = loadArrOrDefault("machines");
+
 export const ContextProvider = ({ children }) => {
   const [clicks, setClicks] = useState(storageClicks);
   const [playerLvl, setPlayerLvl] = useState(storageLvl);
@@ -35,8 +36,7 @@ export const ContextProvider = ({ children }) => {
   const timeoutRef = createRef();
   const intervalRef = createRef();
 
-  //sum up cps
-
+  // sum up cps(clicks per second)
   useEffect(() => {
     let cps = 0;
     if (playerMachines.length < 1) {
@@ -69,7 +69,6 @@ export const ContextProvider = ({ children }) => {
   };
 
   // update local storage
-
   useEffect(() => {
     localStorage.setItem("machines", JSON.stringify(playerMachines));
     localStorage.setItem("clicks", clicks);
@@ -79,22 +78,22 @@ export const ContextProvider = ({ children }) => {
   }, [playerMachines, clicks, playerLvl, lvlRequirement, playerAchievements]);
 
   // update lvl requirement
-
   useEffect(() => {
     if (clicks >= lvlRequirement) {
       setLvlRequirement(lvlRequirement * 2);
       setPlayerLvl(playerLvl + 1);
     }
-  }, [clicks]);
+  }, [clicks, lvlRequirement]);
 
   // achievement earning logic
-
   useEffect(() => {
     const achievements = Object.entries(allAchievements);
     for (const [achievement, details] of achievements) {
       const requirements = Object.entries(details.requirement);
+
       for (const [type, requirement] of requirements) {
         if (playerAchievements.includes(achievement)) continue;
+
         const value = type === "clicks" ? clicks : playerLvl;
         if (value >= requirement) {
           showMessage(details.name);
@@ -113,6 +112,7 @@ export const ContextProvider = ({ children }) => {
       timeoutRef.current = setTimeout(() => showMessage(message), 3000);
       return;
     }
+
     setMessage(message);
     timeoutRef.current = setTimeout(() => {
       setMessage(null);

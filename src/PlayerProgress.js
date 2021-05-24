@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+
 import ClickerContext from "./ClickerContext";
 
 const PlayerProgress = ({ children }) => {
@@ -16,4 +17,5 @@ const PlayerProgress = ({ children }) => {
     </div>
   );
 };
+
 export default PlayerProgress;

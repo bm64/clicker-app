@@ -1,6 +1,8 @@
 import React, { useContext, useMemo } from "react";
+
 import ClickerButton from "./ClickerButton";
 import PlayerProgress from "./PlayerProgress";
+
 import ClickerContext from "./ClickerContext";
 
 const Home = () => {

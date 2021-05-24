@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import "./styles.css";
+
 import ClickerContext from "./ClickerContext";
 
 const AchievementMessage = () => {

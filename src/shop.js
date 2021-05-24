@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
+
 import ClickerContext from "./ClickerContext";
+
 import { clickingMachines } from "./data";
 
 const Shop = () => {

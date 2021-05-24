@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
+
 import ClickerContext from "./ClickerContext";
-import "./styles.css";
+
 const ClickerButton = () => {
   const { handleClick } = useContext(ClickerContext);
   const [isShaking, setIsShaking] = useState(false);
+
   const shake = () => {
     setIsShaking(true);
     setTimeout(() => setIsShaking(false), 300);

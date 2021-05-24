@@ -1,11 +1,16 @@
-import "./styles.css";
-import Navbar from "./Navbar";
 import { Route, Switch, Redirect } from "react-router-dom";
+
+import Navbar from "./Navbar";
+
 import Home from "./Home";
 import Achievements from "./Achievements";
 import Shop from "./Shop";
-import { ContextProvider } from "./ClickerContext";
+
 import AchievementMessage from "./AchievementMessage";
+
+import { ContextProvider } from "./ClickerContext";
+
+import "./styles.css";
 
 const App = () => {
   return (
