@@ -6,6 +6,24 @@ export default ClickerContext;
 
 // load data from local storage
 
+const loadIntOrDefault = (key, defaultValue = 0) => {
+  return localStorage.getItem(key) !== null
+    ? parseInt(localStorage.getItem(key))
+    : defaultValue;
+};
+
+const loadArrOrDefault = (key, defaultValue = []) => {
+  return localStorage.getItem(key) !== null
+    ? JSON.parse(localStorage.getItem(key))
+    : defaultValue;
+};
+
+const storageClicks = loadIntOrDefault("clicks");
+const storageLvl = loadIntOrDefault("lvl", 1);
+const storageRequirements = loadIntOrDefault("lvlRequirement", 10);
+const storageAchievements = loadArrOrDefault("achievements");
+const storageMachines = loadArrOrDefault("machines");
+/*
 const storageClicks =
   localStorage.getItem("clicks") !== null
     ? parseInt(localStorage.getItem("clicks"))
@@ -30,7 +48,7 @@ const storageMachines =
   localStorage.getItem("machines") !== null
     ? JSON.parse(localStorage.getItem("machines"))
     : [];
-
+*/
 export const ContextProvider = ({ children }) => {
   const [clicks, setClicks] = useState(storageClicks);
   const [playerLvl, setPlayerLvl] = useState(storageLvl);
