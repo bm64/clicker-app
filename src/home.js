@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
 import ClickerButton from "./ClickerButton";
 import PlayerProgress from "./PlayerProgress";
 import ClickerContext from "./clickerContext";
 
 const Home = () => {
-  const { clearProgress } = useContext(ClickerContext);
+  const { clearProgress, playerMachines } = useContext(ClickerContext);
 
   return (
     <div className="home">

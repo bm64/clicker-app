@@ -8,7 +8,7 @@ const Navbar = () => {
     <nav className="navbar">
       <h1 className="navbar__logo">Cookie Clicker</h1>
       <div className="navbar__menu">
-        <Link className="menu__item" to="/">
+        <Link className="menu__item" to="/home">
           Home
         </Link>
         <Link className="menu__item" to="/achievements">
@@ -19,7 +19,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar__icons">
-        <Link to="/">
+        <Link to="/home">
           <div className="navbar__icon">{icons.home}</div>
         </Link>
         <Link to="/achievements">

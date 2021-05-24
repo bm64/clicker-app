@@ -1,6 +1,6 @@
 import "./styles.css";
 import Navbar from "./Navbar";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "./home";
 import Achievements from "./achievements";
 import Shop from "./shop";
@@ -21,8 +21,11 @@ const App = () => {
             <Route path="/shop">
               <Shop />
             </Route>
-            <Route path="/">
+            <Route path="/home">
               <Home />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
             </Route>
           </Switch>
         </div>
