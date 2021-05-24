@@ -125,7 +125,7 @@ export const ContextProvider = ({ children }) => {
     timeoutRef.current = setTimeout(() => {
       setMessage(null);
       timeoutRef.current = null;
-    }, 30000);
+    }, 3000);
   };
 
   const clearProgress = () => {
