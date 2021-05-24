@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from "react";
 
-import ClickerContext from "./ClickerContext";
+import { ClickerContext } from "./ClickerContext";
 
 import { achievements as allAchievements } from "./data";
 

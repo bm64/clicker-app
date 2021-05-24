@@ -2,13 +2,12 @@ import React, { useState, createContext, useEffect, createRef } from "react";
 
 import { clickingMachines, achievements as allAchievements } from "./data";
 
-const ClickerContext = createContext();
-export default ClickerContext;
+export const ClickerContext = createContext();
 
 // load data from local storage
 const loadIntOrDefault = (key, defaultValue = 0) => {
   return localStorage.getItem(key) !== null
-    ? parseInt(localStorage.getItem(key))
+    ? parseInt(localStorage.getItem(key), 10)
     : defaultValue;
 };
 
@@ -45,9 +44,9 @@ export const ContextProvider = ({ children }) => {
       return;
     }
 
-    playerMachines.forEach((machine) => {
+    for (const machine of playerMachines) {
       cps = cps + clickingMachines[machine].cps;
-    });
+    }
 
     intervalRef.current = setInterval(() => {
       setClicks((cx) => cx + cps / 10);
@@ -81,7 +80,7 @@ export const ContextProvider = ({ children }) => {
   useEffect(() => {
     if (clicks >= lvlRequirement) {
       setLvlRequirement(lvlRequirement * 2);
-      setPlayerLvl(playerLvl + 1);
+      setPlayerLvl((playerLvl) => playerLvl + 1);
     }
   }, [clicks, lvlRequirement]);
 

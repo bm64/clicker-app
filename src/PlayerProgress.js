@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
 
-import ClickerContext from "./ClickerContext";
+import { ClickerContext } from "./ClickerContext";
 
 const PlayerProgress = ({ children }) => {
   const { clicks, playerLvl, lvlRequirement } = useContext(ClickerContext);
   return (
     <div className="player-progress">
       <h1 className="primary-header">
-        {Number.isInteger(clicks) ? clicks : clicks.toFixed(0)}
+        {Math.floor(clicks)}
         <br />
         {clicks === 1 ? "Cookie" : "Cookies"}
       </h1>

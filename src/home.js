@@ -3,7 +3,7 @@ import React, { useContext, useMemo } from "react";
 import ClickerButton from "./ClickerButton";
 import PlayerProgress from "./PlayerProgress";
 
-import ClickerContext from "./ClickerContext";
+import { ClickerContext } from "./ClickerContext";
 
 const Home = () => {
   const { clearProgress, playerMachines } = useContext(ClickerContext);
@@ -16,6 +16,7 @@ const Home = () => {
     }
     return Object.entries(counts);
   }, [playerMachines]);
+
   return (
     <div className="home">
       <PlayerProgress>

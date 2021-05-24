@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 
-import ClickerContext from "./ClickerContext";
+import { ClickerContext } from "./ClickerContext";
 
 import { clickingMachines } from "./data";
 
 const Shop = () => {
-  const { playerMachines, handleBuyMachine } = useContext(ClickerContext);
+  const { handleBuyMachine } = useContext(ClickerContext);
   return (
     <div>
       <h1 className="primary-header">Shop</h1>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import ClickerContext from "./ClickerContext";
+import { ClickerContext } from "./ClickerContext";
 
 const AchievementMessage = () => {
   const { message } = useContext(ClickerContext);

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import ClickerContext from "./ClickerContext";
+import { ClickerContext } from "./ClickerContext";
 
 const ClickerButton = () => {
   const { handleClick } = useContext(ClickerContext);
