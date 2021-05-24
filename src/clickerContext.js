@@ -1,31 +1,33 @@
 import React, { useState, createContext, useEffect, createRef } from "react";
-import { clickingMachines, achievements as achievementlist } from "./data";
+import { clickingMachines, achievements as allAchievements } from "./data";
 
 const ClickerContext = createContext();
 export default ClickerContext;
 
+// load data from local storage
+
 const storageClicks =
-  localStorage.getItem("clicks") != undefined
+  localStorage.getItem("clicks") !== null
     ? parseInt(localStorage.getItem("clicks"))
     : 0;
 
 const storageLvl =
-  localStorage.getItem("lvl") != undefined
+  localStorage.getItem("lvl") !== null
     ? parseInt(localStorage.getItem("lvl"))
     : 1;
 
 const storageRequirements =
-  localStorage.getItem("lvlRequirement") != undefined
+  localStorage.getItem("lvlRequirement") !== null
     ? parseInt(localStorage.getItem("lvlRequirement"))
     : 10;
 
 const storageAchievements =
-  localStorage.getItem("achievements") != undefined
+  localStorage.getItem("achievements") !== null
     ? JSON.parse(localStorage.getItem("achievements"))
     : [];
 
 const storageMachines =
-  localStorage.getItem("machines") != undefined
+  localStorage.getItem("machines") !== null
     ? JSON.parse(localStorage.getItem("machines"))
     : [];
 
@@ -35,48 +37,56 @@ export const ContextProvider = ({ children }) => {
   const [lvlRequirement, setLvlRequirement] = useState(storageRequirements);
   const [playerAchievements, setPlayerAchievements] =
     useState(storageAchievements);
-  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState(null);
   const [playerMachines, setPlayerMachines] = useState(storageMachines);
+
+  const timeoutRef = createRef();
   const intervalRef = createRef();
 
-  console.log(playerMachines);
-  //sum up cps and function
+  //sum up cps
+
   useEffect(() => {
     let cps = 0;
-    if (playerMachines.length > 0) {
-      playerMachines.forEach((machine) => {
-        cps = cps + clickingMachines[machine].cps;
-      });
+    if (playerMachines.length < 1) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+      return;
     }
 
-    if (playerMachines.length > 0) {
-      intervalRef.current = setInterval(() => {
-        setClicks((cx) => cx + cps / 10);
-      }, 100);
-      return () => {
-        clearInterval(intervalRef.current);
-      };
-    }
+    playerMachines.forEach((machine) => {
+      cps = cps + clickingMachines[machine].cps;
+    });
+
+    intervalRef.current = setInterval(() => {
+      setClicks((cx) => cx + cps / 10);
+    }, 100);
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
   }, [playerMachines]);
 
-  const handleBuyMachine = (machine) => {
-    for (const [machineName, machineSpecs] of Object.entries(
-      clickingMachines
-    )) {
-      if (
-        machine == machineName &&
-        machineSpecs.cost <= clicks &&
-        machineSpecs.requiredLvl <= playerLvl
-      ) {
-        setPlayerMachines([...playerMachines, machineName]);
-        setClicks(clicks - machineSpecs.cost);
-      }
+  const handleBuyMachine = (machineName) => {
+    const machine = clickingMachines?.[machineName];
+    if (!machine) return;
+
+    if (machine.cost <= clicks && machine.requiredLvl <= playerLvl) {
+      setPlayerMachines([...playerMachines, machineName]);
+      setClicks(clicks - machine.cost);
     }
   };
 
+  // update local storage
+
   useEffect(() => {
     localStorage.setItem("machines", JSON.stringify(playerMachines));
-  }, [playerMachines]);
+    localStorage.setItem("clicks", clicks);
+    localStorage.setItem("lvl", playerLvl);
+    localStorage.setItem("lvlRequirement", lvlRequirement);
+    localStorage.setItem("achievements", JSON.stringify(playerAchievements));
+  }, [playerMachines, clicks, playerLvl, lvlRequirement, playerAchievements]);
+
+  // update lvl requirement
 
   useEffect(() => {
     if (clicks >= lvlRequirement) {
@@ -85,55 +95,38 @@ export const ContextProvider = ({ children }) => {
     }
   }, [clicks]);
 
-  useEffect(() => {
-    localStorage.setItem("clicks", clicks);
-  }, [clicks]);
+  // achievement earning logic
 
   useEffect(() => {
-    localStorage.setItem("lvl", playerLvl);
-    localStorage.setItem("lvlRequirement", lvlRequirement);
-  }, [playerLvl, setLvlRequirement]);
-
-  //achievements handle useEffect
-
-  useEffect(() => {
-    for (const [achievement, achievementDetails] of Object.entries(
-      achievementlist
-    )) {
-      for (const [type, requirement] of Object.entries(
-        achievementDetails.requirement
-      )) {
-        if (
-          type === "clicks" &&
-          clicks >= requirement &&
-          !playerAchievements.includes(achievement)
-        ) {
-          handleShowsMessage();
-          setPlayerAchievements([...playerAchievements, achievement]);
-        } else if (
-          type === "level" &&
-          playerLvl >= requirement &&
-          !playerAchievements.includes(achievement)
-        ) {
-          handleShowsMessage();
+    const achievements = Object.entries(allAchievements);
+    for (const [achievement, details] of achievements) {
+      const requirements = Object.entries(details.requirement);
+      for (const [type, requirement] of requirements) {
+        if (playerAchievements.includes(achievement)) continue;
+        const value = type === "clicks" ? clicks : playerLvl;
+        if (value >= requirement) {
+          showMessage(achievement);
           setPlayerAchievements([...playerAchievements, achievement]);
         }
       }
     }
   }, [clicks, playerLvl]);
 
-  const handleIncreaseClicks = () => {
+  const handleClick = () => {
     setClicks(clicks + 1);
   };
 
-  const handleShowsMessage = () => {
-    setShowMessage(true);
-    setTimeout(() => setShowMessage(false), 3000);
+  const showMessage = (message) => {
+    if (timeoutRef.current) {
+      timeoutRef.current = setTimeout(() => showMessage(message), 3000);
+      return;
+    }
+    setMessage(message);
+    timeoutRef.current = setTimeout(() => {
+      setMessage(null);
+      timeoutRef.current = null;
+    }, 3000);
   };
-
-  useEffect(() => {
-    localStorage.setItem("achievements", JSON.stringify(playerAchievements));
-  }, [playerAchievements]);
 
   const clearProgress = () => {
     localStorage.clear();
@@ -144,18 +137,20 @@ export const ContextProvider = ({ children }) => {
     setPlayerMachines([]);
   };
 
-  const value = {
+  const contextValues = {
     clicks,
-    handleIncreaseClicks,
+    handleClick,
     clearProgress,
     playerLvl,
-    playerAchievements: [...playerAchievements],
-    showMessage,
+    playerAchievements,
+    message,
     playerMachines,
     handleBuyMachine,
     lvlRequirement,
   };
   return (
-    <ClickerContext.Provider value={value}>{children}</ClickerContext.Provider>
+    <ClickerContext.Provider value={contextValues}>
+      {children}
+    </ClickerContext.Provider>
   );
 };

@@ -1,4 +1,4 @@
-export const updateClickCount = (clickCount) => {
+export const updateProgress = (clickCount) => {
   fetch(`<host>/api/v1/progress?click_count=${clickCount}`, {
     method: "PATCH",
   })
