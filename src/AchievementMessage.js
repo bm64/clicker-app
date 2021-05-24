@@ -7,10 +7,11 @@ const AchievementMessage = () => {
   const { message } = useContext(ClickerContext);
   return (
     <div
-      className="achievementMessage"
+      className="achievement-message"
       style={{ transform: message && "translate(-50%,-50%)" }}
     >
-      {message}
+      <p>Achievement unlocked:</p>
+      <span className="achievement">{message}</span>
     </div>
   );
 };
