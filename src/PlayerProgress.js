@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import ClickerContext from "./clickerContext";
+import React, { useContext } from "react";
+import ClickerContext from "./ClickerContext";
 
 const PlayerProgress = ({ children }) => {
   const { clicks, playerLvl, lvlRequirement } = useContext(ClickerContext);

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import ClickerContext from "./clickerContext";
+import ClickerContext from "./ClickerContext";
 import { clickingMachines } from "./data";
 
 const Shop = () => {
@@ -9,10 +9,8 @@ const Shop = () => {
       <h1 className="primary-header">Shop</h1>
       <div className="shop__items">
         {Object.entries(clickingMachines).map(([machineName, details]) => (
-          <div className="shop__item">
-            <h3 key={machineName} className="achievement-name">
-              {details.name}
-            </h3>
+          <div className="shop__item" key={machineName}>
+            <h3 className="achievement-name">{details.name}</h3>
             <div className="icon">{icons[machineName]}</div>
             <div>
               <span className="item__description">

@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.css";
 import { Link } from "react-router-dom";
-import { achievements } from "./data";
 
 const Navbar = () => {
   return (

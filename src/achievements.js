@@ -1,5 +1,5 @@
 import React, { useContext, useMemo } from "react";
-import ClickerContext from "./clickerContext";
+import ClickerContext from "./ClickerContext";
 import { achievements as allAchievements } from "./data";
 
 const Achievements = () => {
@@ -29,7 +29,7 @@ const Achievements = () => {
           <h2>Unlocked Achievements:</h2>
           <div className="divider" />
           {unlockedAchievments.map(([achievement, details]) => (
-            <div>
+            <div key={achievement}>
               <h3 className="achievement-name">{details.name}</h3>
               <span className="achievement-description">
                 {details.description}
@@ -41,7 +41,7 @@ const Achievements = () => {
           <h2>Locked Achievements</h2>
           <div className="divider" />
           {notUnlockedAchievments.map(([achievement, details]) => (
-            <div>
+            <div key={achievement}>
               <h3 className="achievement-name">{details.name}</h3>
               <span className="achievement-description">
                 {details.description}

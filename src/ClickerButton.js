@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import ClickerContext from "./clickerContext";
+import ClickerContext from "./ClickerContext";
 import "./styles.css";
-const ClickerButton = ({ onClick }) => {
+const ClickerButton = () => {
   const { handleClick } = useContext(ClickerContext);
   const [isShaking, setIsShaking] = useState(false);
   const shake = () => {
@@ -17,14 +17,14 @@ const ClickerButton = ({ onClick }) => {
         shake();
       }}
     >
-      <div className="cookie_bite"></div>
-      <div className="cookie_dotsWrap">
-        <div className="cookie_dot"></div>
-        <div className="cookie_dot"></div>
-        <div className="cookie_dot"></div>
-        <div className="cookie_dot"></div>
-        <div className="cookie_dot"></div>
-        <div className="cookie_dot"></div>
+      <div className="cookie-bite"></div>
+      <div className="cookie-dotsWrap">
+        <div className="cookie-dot"></div>
+        <div className="cookie-dot"></div>
+        <div className="cookie-dot"></div>
+        <div className="cookie-dot"></div>
+        <div className="cookie-dot"></div>
+        <div className="cookie-dot"></div>
       </div>
     </div>
   );

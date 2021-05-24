@@ -23,32 +23,6 @@ const storageLvl = loadIntOrDefault("lvl", 1);
 const storageRequirements = loadIntOrDefault("lvlRequirement", 10);
 const storageAchievements = loadArrOrDefault("achievements");
 const storageMachines = loadArrOrDefault("machines");
-/*
-const storageClicks =
-  localStorage.getItem("clicks") !== null
-    ? parseInt(localStorage.getItem("clicks"))
-    : 0;
-
-const storageLvl =
-  localStorage.getItem("lvl") !== null
-    ? parseInt(localStorage.getItem("lvl"))
-    : 1;
-
-const storageRequirements =
-  localStorage.getItem("lvlRequirement") !== null
-    ? parseInt(localStorage.getItem("lvlRequirement"))
-    : 10;
-
-const storageAchievements =
-  localStorage.getItem("achievements") !== null
-    ? JSON.parse(localStorage.getItem("achievements"))
-    : [];
-
-const storageMachines =
-  localStorage.getItem("machines") !== null
-    ? JSON.parse(localStorage.getItem("machines"))
-    : [];
-*/
 export const ContextProvider = ({ children }) => {
   const [clicks, setClicks] = useState(storageClicks);
   const [playerLvl, setPlayerLvl] = useState(storageLvl);

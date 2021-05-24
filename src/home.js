@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from "react";
 import ClickerButton from "./ClickerButton";
 import PlayerProgress from "./PlayerProgress";
-import ClickerContext from "./clickerContext";
+import ClickerContext from "./ClickerContext";
 
 const Home = () => {
   const { clearProgress, playerMachines } = useContext(ClickerContext);
@@ -14,7 +14,6 @@ const Home = () => {
     }
     return Object.entries(counts);
   }, [playerMachines]);
-  console.log(machines);
   return (
     <div className="home">
       <PlayerProgress>
@@ -22,7 +21,7 @@ const Home = () => {
       </PlayerProgress>
       <div className="machines">
         {machines.map(([name, count]) => (
-          <div className="machine">
+          <div className="machine" key={name}>
             <span className="machine-count"> {count} x </span>
             <div className="machine-icon">{icons[name]}</div>
           </div>
