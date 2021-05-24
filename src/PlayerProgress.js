@@ -6,7 +6,7 @@ const PlayerProgress = ({ children }) => {
   const { clicks, playerLvl, lvlRequirement } = useContext(ClickerContext);
   return (
     <div className="player-progress">
-      <h1 className="primary-header">
+      <h1 className="header">
         {Math.floor(clicks)}
         <br />
         {clicks === 1 ? "Cookie" : "Cookies"}

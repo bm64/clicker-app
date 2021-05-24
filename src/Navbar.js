@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h1 className="navbar__logo">Cookie Clicker</h1>
-      <div className="navbar__menu">
+      <h1 className="logo">Cookie Clicker</h1>
+      <div className="menu">
         <Link className="menu__item" to="/home">
           Home
         </Link>

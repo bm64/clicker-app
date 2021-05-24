@@ -8,11 +8,11 @@ const Shop = () => {
   const { handleBuyMachine } = useContext(ClickerContext);
   return (
     <div>
-      <h1 className="primary-header">Shop</h1>
-      <div className="shop__items">
+      <h1 className="header">Shop</h1>
+      <div className="shop">
         {Object.entries(clickingMachines).map(([machineName, details]) => (
           <div className="shop__item" key={machineName}>
-            <h3 className="achievement-name">{details.name}</h3>
+            <h3 className="item__name">{details.name}</h3>
             <div className="icon">{icons[machineName]}</div>
             <div>
               <span className="item__description">

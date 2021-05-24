@@ -25,8 +25,8 @@ const Home = () => {
       <div className="machines">
         {machines.map(([name, count]) => (
           <div className="machine" key={name}>
-            <span className="machine-count"> {count} x </span>
-            <div className="machine-icon">{icons[name]}</div>
+            <span className="machine__count"> {count} x </span>
+            <div className="machine__icon">{icons[name]}</div>
           </div>
         ))}
       </div>

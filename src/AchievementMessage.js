@@ -10,7 +10,7 @@ const AchievementMessage = () => {
       style={{ transform: message && "translate(-50%,-50%)" }}
     >
       <p>Achievement unlocked:</p>
-      <span className="achievement">{message}</span>
+      <span className="message">{message}</span>
     </div>
   );
 };

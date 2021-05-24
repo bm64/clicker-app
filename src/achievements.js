@@ -25,15 +25,15 @@ const Achievements = () => {
 
   return (
     <div>
-      <h1 className="primary-header">Achievements</h1>
+      <h1 className="header">Achievements</h1>
       <div className="achievements">
         <div>
           <h2>Unlocked Achievements:</h2>
           <div className="divider" />
           {unlockedAchievments.map(([achievement, details]) => (
             <div key={achievement}>
-              <h3 className="achievement-name">{details.name}</h3>
-              <span className="achievement-description">
+              <h3 className="item__name">{details.name}</h3>
+              <span className="achievement__description">
                 {details.description}
               </span>
             </div>
@@ -44,8 +44,8 @@ const Achievements = () => {
           <div className="divider" />
           {notUnlockedAchievments.map(([achievement, details]) => (
             <div key={achievement}>
-              <h3 className="achievement-name">{details.name}</h3>
-              <span className="achievement-description">
+              <h3 className="item__name">{details.name}</h3>
+              <span className="achievement__description">
                 {details.description}
               </span>
             </div>
