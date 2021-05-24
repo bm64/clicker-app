@@ -33,18 +33,21 @@ export const achievements = {
 
 export const clickingMachines = {
   cookieFarm: {
-    requiredLvl: 3,
+    name: "Cookie Farm",
+    requiredLvl: 2,
     cost: 10,
     cps: 1,
   },
   cookieFactory: {
+    name: "Cookie Factory",
     requiredLvl: 4,
-    cost: 20,
-    cps: 2,
+    cost: 25,
+    cps: 3,
   },
   cookieConjurer: {
-    requiredLvl: 5,
-    cost: 30,
-    cps: 3,
+    name: "Cookie Conjurer",
+    requiredLvl: 6,
+    cost: 40,
+    cps: 5,
   },
 };
