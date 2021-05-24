@@ -1,15 +1,33 @@
 export const achievements = {
-  koxClicker: {
-    description: "reach 100 clicks",
-    requirement: { clicks: 5 },
+  advancedBaker: {
+    name: "Advanced Baker",
+    description: "Bake 100 cookies",
+    requirement: { clicks: 100 },
   },
-  turboClicker: {
-    description: "reach 100 clicks",
-    requirement: { clicks: 80 },
+  galacticBakery: {
+    name: "Galactic Bakery",
+    description: "Bake 200 cookies ",
+    requirement: { clicks: 200 },
   },
-  professionalclicker: {
-    description: "reach 5lvl",
+  cookieMonster: {
+    name: "Cookie Monster",
+    description: "Bake 1000 cookies",
+    requirement: { clicks: 1000 },
+  },
+  rookie: {
+    name: "Rookie",
+    description: "Reach level 2",
+    requirement: { level: 2 },
+  },
+  casualBaking: {
+    name: "Casual Baking",
+    description: "Reach level 4",
     requirement: { level: 4 },
+  },
+  cookieKing: {
+    name: "Cookie King",
+    description: "Reach level 6",
+    requirement: { level: 6 },
   },
 };
 

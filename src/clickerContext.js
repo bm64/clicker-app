@@ -105,7 +105,7 @@ export const ContextProvider = ({ children }) => {
         if (playerAchievements.includes(achievement)) continue;
         const value = type === "clicks" ? clicks : playerLvl;
         if (value >= requirement) {
-          showMessage(achievement);
+          showMessage(details.name);
           setPlayerAchievements([...playerAchievements, achievement]);
         }
       }
