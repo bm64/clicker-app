@@ -7,7 +7,7 @@ const Home = () => {
   const { clearProgress } = useContext(ClickerContext);
 
   return (
-    <div>
+    <div className="home">
       <PlayerProgress>
         <ClickerButton />
       </PlayerProgress>

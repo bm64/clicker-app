@@ -1,4 +1,3 @@
-import { createContext, useState } from "react";
 import "./styles.css";
 import Navbar from "./Navbar";
 import { Route, Switch } from "react-router-dom";
