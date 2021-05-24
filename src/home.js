@@ -8,10 +8,12 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Home</h1>
-      <PlayerProgress />
-      <ClickerButton />
-      <button onClick={clearProgress}>clear</button>
+      <PlayerProgress>
+        <ClickerButton />
+      </PlayerProgress>
+      <button className="clear-button" onClick={clearProgress}>
+        Reset your progress
+      </button>
     </div>
   );
 };

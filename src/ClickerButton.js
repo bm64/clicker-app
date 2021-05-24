@@ -2,19 +2,19 @@ import React, { useContext, useState } from "react";
 import ClickerContext from "./clickerContext";
 import "./styles.css";
 const ClickerButton = ({ onClick }) => {
-  const { handleIncreaseClicks } = useContext(ClickerContext);
-  const [shake, setShake] = useState(false);
-  const handleShakeAnimation = () => {
-    setShake(true);
-    setTimeout(() => setShake(false), 300);
+  const { handleClick } = useContext(ClickerContext);
+  const [isShaking, setIsShaking] = useState(false);
+  const shake = () => {
+    setIsShaking(true);
+    setTimeout(() => setIsShaking(false), 300);
   };
 
   return (
     <div
-      className={`cookie ${shake && `shake`}`}
+      className={`cookie ${isShaking && `shake`}`}
       onClick={() => {
-        handleIncreaseClicks();
-        handleShakeAnimation();
+        handleClick();
+        shake();
       }}
     >
       <div className="cookie_bite"></div>
